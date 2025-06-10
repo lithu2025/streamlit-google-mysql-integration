@@ -167,9 +167,9 @@ PORT = "3306"
 USER = "digitwebai"
 PASS = "digitweb@2025"
 DB = "amazon"
-SSL_CA = r"C:\Users\digit\Desktop\Amazon\server-ca.pem"
-SSL_CERT = r"C:\Users\digit\Desktop\Amazon\client-cert.pem"
-SSL_KEY = r"C:\Users\digit\Desktop\Amazon\client-key.pem"
+SSL_CA = r"server-ca.pem"
+SSL_CERT = r"client-cert.pem"
+SSL_KEY = r"client-key.pem"
 
 conn = connect_to_gcloud_database(HOST, PORT, USER, PASS, DB, SSL_CA, SSL_CERT, SSL_KEY)
 
