@@ -173,12 +173,12 @@ st.header("⚡ Google Sheets, CSV, and XLSX Integration")
 
 HOST = "34.118.200.124"
 PORT = "3306"
-USER = os.environ.get('MYSQL_USER')
-PASS = os.environ.get('MYSQL_PASS')
+USER = os.environ.get('USERNAME')
+PASS = os.environ.get('PASSWORD')
 DB = "amazon"
-SSL_CA = 'server-ca.pem'
-SSL_CERT = 'client-cert.pem'
-SSL_KEY = 'client-key.pem'
+SSL_CA = os.environ.get('SERVER_CA')
+SSL_CERT = os.environ.get('CLIENT_CERT')
+SSL_KEY = os.environ.get('CLIENT_KEY')
 
 
 conn = connect_to_gcloud_database(HOST, PORT, USER, PASS, DB, SSL_CA, SSL_CERT, SSL_KEY)
