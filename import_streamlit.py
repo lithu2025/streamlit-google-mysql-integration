@@ -18,28 +18,15 @@ def clean_column_name(col_name):
     col_name = ''.join(char for char in col_name if char.isalnum() or char == '_')
     return col_name.lower()
 
-# 🔹 Connect to MySQL with SSL
-def connect_to_gcloud_database(host, port, user, password, database, ssl_ca, ssl_cert, ssl_key):
-    for cert_file, cert_name in [(ssl_ca, "CA"), (ssl_cert, "Client Certificate"), (ssl_key, "Client Key")]:
-        if not os.path.exists(cert_file):
-            print(f"Error: {cert_name} file not found at {cert_file}")
-            return None
-
+# 🔹 Connect to MySQL
+def connect_to_gcloud_database(host, port, user, password, database):
     try:
-        ssl_config = {
-            'ssl_ca': ssl_ca,
-            'ssl_cert': ssl_cert,
-            'ssl_key': ssl_key,
-            'ssl_verify_cert': True
-        }
-
         connection = mysql.connector.connect(
             host=host,
             port=int(port),
             user=user,
             password=password,
-            database=database,
-            **ssl_config
+            database=database
         )
 
         if connection.is_connected():
@@ -161,27 +148,14 @@ st.markdown("""
 st.title("📥 **Data Import & Management**")
 st.header("⚡ Google Sheets, CSV, and XLSX Integration")
 
-# # MySQL Connection Details
-# HOST = "34.118.200.124"
-# PORT = "3306"
-# USER = "digitwebai"
-# PASS = "digitweb@2025"
-# DB = "amazon"
-# SSL_CA = r"C:\Users\digit\Desktop\Amazon\server-ca.pem"
-# SSL_CERT = r"C:\Users\digit\Desktop\Amazon\client-cert.pem"
-# SSL_KEY = r"C:\Users\digit\Desktop\Amazon\client-key.pem"
-
+# MySQL Connection Details
 HOST = "34.118.200.124"
 PORT = "3306"
-USER = os.environ.get('USERNAME')
-PASS = os.environ.get('PASSWORD')
+USER = "digitwebai"
+PASS = "digitweb@2025"
 DB = "amazon"
-SSL_CA = os.environ.get('SERVER_CA')
-SSL_CERT = os.environ.get('CLIENT_CERT')
-SSL_KEY = os.environ.get('CLIENT_KEY')
 
-
-conn = connect_to_gcloud_database(HOST, PORT, USER, PASS, DB, SSL_CA, SSL_CERT, SSL_KEY)
+conn = connect_to_gcloud_database(HOST, PORT, USER, PASS, DB)
 
 # Allow user to upload multiple CSV or XLSX files
 uploaded_files = st.file_uploader("Choose CSV or XLSX files", accept_multiple_files=True, type=["csv", "xlsx"])
